@@ -6,5 +6,5 @@ export const user = (state = null, action) => {
       return null;
     default:
       return state;
-  }
+  } 
 }

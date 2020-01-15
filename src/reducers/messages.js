@@ -6,5 +6,5 @@ export const messages = ( state=[], action ) => {
           return action.clear;
         default:
           return state;
-    }
+    } 
 }

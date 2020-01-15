@@ -1,10 +1,11 @@
 export const createUser = user => ({
   type: 'CREATE_USER',
   user
-});
+}); 
 
-export const removeUser = () => ({
-  type: 'REMOVE_USER'
+export const removeUser = (object) => ({
+  type: 'REMOVE_USER',
+  object
 });
 
 export const hasErrored = errorMsg => ({
