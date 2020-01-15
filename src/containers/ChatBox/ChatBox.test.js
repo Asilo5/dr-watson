@@ -62,10 +62,10 @@ describe('ChatBox component', () => {
     wrapper.instance().messageChatBot = jest.fn();
 
     wrapper.setState({ message: 'Hello world' });
-    wrapper.instance().handleSubmit({ key: 'Enter' });
+    wrapper.instance().handleSubmit({ target:{key: 'Enter' }});
 
     expect(wrapper.state('message')).toEqual('');
-    expect(wrapper.instance().handleSubmit).toHaveBeenCalled();
+    expect(wrapper.instance().messageChatBot).toHaveBeenCalled();
   });
 
   it('should call addMessage, messageChatBot, and clear state when calling handleSubmit clicking the button', () => {
