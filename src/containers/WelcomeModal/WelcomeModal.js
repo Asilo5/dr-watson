@@ -36,7 +36,7 @@ export class WelcomeModal extends Component {
     try {
       const firstMessage = await startConversation(this.state.feeling);
       // this.props.addMessage(firstMessage.message, false); addMessage is in APP
-      this.props.addNewMessage(firstMessage.message, false);
+      this.props.addNewMessage({message: firstMessage.message, isUser: false});
     } catch({ message }) {
       this.props.hasErrored(message);
     }
