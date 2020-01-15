@@ -5,4 +5,4 @@ export const errorMsg = (state='', action) => {
     default:
       return state;
   }
-}
+} 
