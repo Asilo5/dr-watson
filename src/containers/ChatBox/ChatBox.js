@@ -1,7 +1,7 @@
 import React, { Component, createRef } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { hasErrored } from '../../actions';
+import { hasErrored, addNewMessage, deleteMessages } from '../../actions';
 import { postMessage } from '../../apiCalls';
 import Message from '../../components/Message/Message'
 
@@ -25,7 +25,8 @@ export class ChatBox extends Component {
   handleSubmit = e => {
     if (e.key === 'Enter' || e.button === 0) {
       const { message } = this.state;
-      this.props.addMessage(message, true);
+      // this.props.addMessage(message, true);
+      this.props.addNewMessage({message:message, isUser: true});
       this.setState({ message: '' });
       this.messageChatBot();
     }
@@ -34,16 +35,19 @@ export class ChatBox extends Component {
   messageChatBot = async () => {
     try {
       const messageResponse = await postMessage(this.state.message);
-      this.props.addMessage(messageResponse.message, false);
+      // this.props.addMessage(messageResponse.message, false);
+      this.props.addNewMessage({message: messageResponse.message, isUser: false});
     } catch({ message }) {
       this.props.hasErrored(message)  
     }
   }
 
   render() {
-    const { message } = this.state;
     const { messages, errorMsg } = this.props;
+    const { message } = this.state;
+    console.log('ChatBox 48', messages)
     const survey = messages.map((message, i) => {
+      console.log('Inside survey', message)
       return <Message
         key={`message${i}`}
         message={message.message}
@@ -70,10 +74,11 @@ export class ChatBox extends Component {
   }
 }
 
-export const mapStateToProps = ({ errorMsg }) => ({
-  errorMsg
+export const mapStateToProps = ({ errorMsg, messages }) => ({
+  errorMsg,
+  messages
 })
 
-export const mapDispatchToProps = dispatch => bindActionCreators({ hasErrored }, dispatch);
+export const mapDispatchToProps = dispatch => bindActionCreators({ hasErrored, addNewMessage, deleteMessages }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatBox);
