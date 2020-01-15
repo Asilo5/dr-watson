@@ -12,7 +12,7 @@ export class ChatBox extends Component {
     super();
     this.state = { message: '' }
     this.convo = createRef();
-  }
+  } 
 
   componentDidUpdate() {
     this.convo.scrollTop = this.convo.scrollHeight;
@@ -34,8 +34,7 @@ export class ChatBox extends Component {
 
   messageChatBot = async () => {
     try {
-      const messageResponse = await postMessage(this.state.message);
-      // this.props.addMessage(messageResponse.message, false);
+      const messageResponse = await postMessage({newMessage:this.state.message});
       this.props.addNewMessage({message: messageResponse.message, isUser: false});
     } catch({ message }) {
       this.props.hasErrored(message)  
