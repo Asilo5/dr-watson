@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { App, mapStateToProps, mapDispatchToProps } from './App';
-import { removeUser, hasErrored } from '../../actions';
+import { removeUser, hasErrored, addNewMessage, deleteMessages } from '../../actions';
 import { endConversation } from '../../apiCalls';
 
 jest.mock('../../apiCalls');
@@ -106,4 +106,24 @@ describe('mapDispatchToProps', () => {
 
     expect(mockDispatch).toHaveBeenCalledWith(actionToDispatch);
   });
+
+  it('calls dispatch with addNewMessage action when addNewMessage is called', () => {
+    const mockDispatch = jest.fn();
+    const actionToDispatch = addNewMessage({message: 'Hello', isUser: true});
+
+    const mappedProps = mapDispatchToProps(mockDispatch);
+    mappedProps.addNewMessage({message: 'Hello', isUser: true});
+
+    expect(mockDispatch).toHaveBeenCalledWith(actionToDispatch);
+  })
+
+  it('calls dispatch with deleteMessages  action when deleteMessages  is called', () => {
+    const mockDispatch = jest.fn();
+    const actionToDispatch = deleteMessages([]);
+
+    const mappedProps = mapDispatchToProps(mockDispatch);
+    mappedProps.deleteMessages([]);
+
+    expect(mockDispatch).toHaveBeenCalledWith(actionToDispatch);
+  })
 });

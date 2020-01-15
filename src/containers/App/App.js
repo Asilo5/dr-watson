@@ -10,15 +10,7 @@ import './App.css';
 
 export class App extends Component {
 
-
-  // addMessage = (message, isUser) => {
-    // const { messages } = this.state;
-    // this.setState({ messages: [...messages, { message, isUser }]});
-  //   const { addNewMessage } = this.props;
-  //   addNewMessage({ message, isUser });
-  // }
-
-  signOut = async () => {
+  signOut = async () => { 
     try {
       await endConversation();
       this.props.removeUser(); // no action is finished and reducer is not finished either for remove user
