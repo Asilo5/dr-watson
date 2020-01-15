@@ -17,12 +17,16 @@ export class App extends Component {
   }
 
   addMessage = (message, isUser) => {
-    const { messages } = this.state;
-    this.setState({ messages: [...messages, { message, isUser }]});
+    // const { messages } = this.state;
+    // this.setState({ messages: [...messages, { message, isUser }]});
+    const { addNewMessage } = this.props;
+    addNewMessage({ message, isUser });
   }
  
   clearMessages = () => {
-    this.setState({ messages: [] });
+    // this.setState({ messages: [] });
+    const { deleteMessages } = this.props;
+    deleteMessages([]);
   }
 
   signOut = async () => {
