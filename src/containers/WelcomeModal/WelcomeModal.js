@@ -17,7 +17,7 @@ export class WelcomeModal extends Component {
   }
 
   handleChange = e => {
-    this.setState({ [e.target.name]: e.target.value, error: '' });
+    this.setState({ [e.target.name]: e.target.value, error: 'Please fill all inputs' });
   }
 
   handleSubmit = e => {
@@ -44,10 +44,11 @@ export class WelcomeModal extends Component {
   render() {
     const { firstName, lastName, feeling, error } = this.state;
     const isDisabled =  firstName.length === 0 || lastName.length === 0 || feeling.length === 0 ? true : false;
+
     return (
       <form className="welcome-modal">
         <legend>Welcome to Survey Bot!  Please enter your name.</legend>
-        {error && <p className="error-msg">{error}</p>}
+        {firstName.length === 0 || lastName.length === 0 || feeling.length === 0 ? <p className="error-msg">{error}</p> : ''}
         <label>First Name:
           <input
             name="firstName"
