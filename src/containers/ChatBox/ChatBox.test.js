@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { ChatBox, mapStateToProps, mapDispatchToProps } from './ChatBox';
-import { hasErrored } from '../../actions';
+import { hasErrored, addNewMessage } from '../../actions';
 import { postMessage } from '../../apiCalls';
 
 jest.mock('../../apiCalls');
@@ -65,7 +65,7 @@ describe('ChatBox component', () => {
     wrapper.instance().handleSubmit({ key: 'Enter' });
 
     expect(wrapper.state('message')).toEqual('');
-    expect(wrapper.instance().messageChatBot).toHaveBeenCalled();
+    expect(wrapper.instance().handleSubmit).toHaveBeenCalled();
   });
 
   it('should call addMessage, messageChatBot, and clear state when calling handleSubmit clicking the button', () => {
@@ -117,28 +117,25 @@ describe('ChatBox component', () => {
 
 describe('mapStateToProps', () => {
   it('should return an object with the messages and errorMsg information', () => {
-    const mockUser = {
-      id: 1568665187737,
-      firstName: "Travis",
-      lastName: "Rollins",
-      feeling: "tired"
-    };
-
     const mockState = {
-      user: mockUser,
-      messages: [{
+      errorMsg: '',
+      messages: [{ 
         message: 'Hi there, my name is Dr. Watson. I understand that you have been feeling happy. That is super exciting to hear!',
         isUser: false,
-      }],
-      errorMsg: ''
+      }]
     };
     const expected = {
-      errorMsg: ''
+      errorMsg: '',
+      messages: [{ 
+        message: 'Hi there, my name is Dr. Watson. I understand that you have been feeling happy. That is super exciting to hear!',
+        isUser: false,
+      }]
     };
     const mappedProps = mapStateToProps(mockState);
 
     expect(mappedProps).toEqual(expected);
   });
+
 });
 
 describe('mapDispatchToProps', () => {
@@ -148,6 +145,16 @@ describe('mapDispatchToProps', () => {
 
     const mappedProps = mapDispatchToProps(mockDispatch);
     mappedProps.hasErrored('fetch failed');
+
+    expect(mockDispatch).toHaveBeenCalledWith(actionToDispatch);
+  });
+
+  it('calls dispatch with a addNewMessage action when addNewMessage is called', () => {
+    const mockDispatch = jest.fn();
+    const actionToDispatch = addNewMessage({message: 'hellow', isUser: true});
+
+    const mappedProps = mapDispatchToProps(mockDispatch);
+    mappedProps.addNewMessage({message: 'hellow', isUser: true});
 
     expect(mockDispatch).toHaveBeenCalledWith(actionToDispatch);
   });

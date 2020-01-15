@@ -1,11 +1,11 @@
 import React, { Component, createRef } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { hasErrored, addNewMessage, deleteMessages } from '../../actions';
+import { hasErrored, addNewMessage } from '../../actions';
 import { postMessage } from '../../apiCalls';
 import Message from '../../components/Message/Message'
 
-import "./ChatBox.css"
+import "./ChatBox.css" 
 
 export class ChatBox extends Component {
   constructor() {
@@ -45,14 +45,12 @@ export class ChatBox extends Component {
   render() {
     const { messages, errorMsg } = this.props;
     const { message } = this.state;
-    console.log('ChatBox 48', messages)
     const survey = messages.map((message, i) => {
-      console.log('Inside survey', message)
       return <Message
         key={`message${i}`}
         message={message.message}
         isUser={message.isUser}
-      />
+      /> 
     })
     return (
       <main className="chat-container">
@@ -79,6 +77,6 @@ export const mapStateToProps = ({ errorMsg, messages }) => ({
   messages
 })
 
-export const mapDispatchToProps = dispatch => bindActionCreators({ hasErrored, addNewMessage, deleteMessages }, dispatch);
+export const mapDispatchToProps = dispatch => bindActionCreators({ hasErrored, addNewMessage }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatBox);

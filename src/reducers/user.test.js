@@ -3,7 +3,7 @@ import { user } from './user';
 describe('user', () => {
 
     it('should return the initial state', () => {
-       const expected = {};
+       const expected = null;
        const result = user(undefined, {});
 
        expect(result).toEqual(expected);
@@ -42,11 +42,11 @@ describe('user', () => {
 
       const action = {
           type: 'REMOVE_USER',
-          object: {}
+          object: null
       };
 
       const result = user(initialState, action);
-      const expected = {};
+      const expected = null;
        expect(result).toEqual(expected);
     })
 })

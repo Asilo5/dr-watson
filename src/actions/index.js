@@ -1,7 +1,7 @@
 export const createUser = user => ({
   type: 'CREATE_USER',
   user
-});
+}); 
 
 export const removeUser = (object) => ({
   type: 'REMOVE_USER',
