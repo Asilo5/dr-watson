@@ -26,7 +26,7 @@ export class WelcomeModal extends Component {
     this.props.createUser({
       id: Date.now(),
       firstName,
-      lastName,
+      lastName, 
       feeling,
     });
     this.connectToChatBot();
@@ -35,7 +35,7 @@ export class WelcomeModal extends Component {
   connectToChatBot = async () => {
     try {
       const firstMessage = await startConversation(this.state.feeling);
-      this.props.addMessage(firstMessage.message, false);
+      this.props.addMessage(firstMessage.message, false); // addMessage is in APP
     } catch({ message }) {
       this.props.hasErrored(message);
     }
@@ -43,6 +43,7 @@ export class WelcomeModal extends Component {
 
   render() {
     const { firstName, lastName, feeling, error } = this.state;
+    const isDisabled =  firstName.length === 0 || lastName.length === 0 || feeling.length === 0 ? true : false;
     return (
       <form className="welcome-modal">
         <legend>Welcome to Survey Bot!  Please enter your name.</legend>
@@ -68,7 +69,7 @@ export class WelcomeModal extends Component {
           <option value="stressed">Stressed</option>
           <option value="frustrated">Frustrated</option>
         </select>
-        <button onClick={this.handleSubmit}>
+        <button disabled={isDisabled} onClick={this.handleSubmit}>
           Take 5 minutes to check in!
         </button>
       </form>

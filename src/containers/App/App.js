@@ -28,7 +28,7 @@ export class App extends Component {
   signOut = async () => {
     try {
       await endConversation();
-      this.props.removeUser();
+      this.props.removeUser(); // no action is finished and reducer is not finished either for remove user
       this.clearMessages();
     } catch({ message }) {
       this.props.hasErrored(message);
