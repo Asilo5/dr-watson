@@ -20,7 +20,7 @@ export class App extends Component {
     const { messages } = this.state;
     this.setState({ messages: [...messages, { message, isUser }]});
   }
-
+ 
   clearMessages = () => {
     this.setState({ messages: [] });
   }
